@@ -5,7 +5,18 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var insertRouter = require('./routes/insert');
 var usersRouter = require('./routes/users');
+
+const { Pool, Client } = require("pg");
+
+const pool = new Pool({
+  user: "jxdxupfkbvognh",
+  host: "ec2-54-217-204-34.eu-west-1.compute.amazonaws.com",
+  database: "d660j81p5lk259",
+  password: "5f63395a84787c80a71e10c87388edde813a282c97cb8868b7666385888711a2",
+  port: "5432"
+});
 
 var app = express();
 
@@ -20,6 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/insert', insertRouter);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
